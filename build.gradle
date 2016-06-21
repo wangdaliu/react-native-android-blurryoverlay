@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.android.tools.build:gradle:2.0.0'
     }
 }
 
@@ -12,7 +12,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion 16
@@ -26,10 +26,10 @@ android {
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    compile "com.facebook.react:react-native:0.16.+"
-    compile 'jp.wasabeef:blurry:1.0.4'
+    compile "com.facebook.react:react-native:+"  // From node_modules
+    compile 'jp.wasabeef:blurry:2.0.2'
 }
