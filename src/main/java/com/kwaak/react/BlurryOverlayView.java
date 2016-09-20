@@ -11,6 +11,7 @@ import jp.wasabeef.blurry.Blurry;
 
 public class BlurryOverlayView extends ImageView {
 
+    private static final String TAG = "BlurryOverlayView";
     private final String LOGTAG = "BlurryOverlayView";
 
     private int radius;
@@ -33,6 +34,11 @@ public class BlurryOverlayView extends ImageView {
 
     private void Render(Activity activity) {
 
+        if (activity == null) {
+            Log.e(TAG, "activity is null");
+            return;
+        }
+
         // Defaults
         if(this.radius == 0)
             setRadius(defaultRadius);
@@ -41,7 +47,13 @@ public class BlurryOverlayView extends ImageView {
 
         Log.i(LOGTAG, String.format("activity %s", activity));
 
-        final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
+        final ViewGroup content = (ViewGroup) activity.findViewById(android.R.id.content);
+        if (content == null) {
+            Log.e(TAG, "content is null");
+            return;
+        }
+
+        final ViewGroup viewGroup = (ViewGroup) content.getChildAt(0);
 
         Log.i(LOGTAG, String.format("viewGroup %s", viewGroup));
         Log.i(LOGTAG, String.format("this %s", this));
@@ -51,11 +63,11 @@ public class BlurryOverlayView extends ImageView {
                 .sampling(this.sampling);
 
         if(this.color != null)
-                c = c.color(Color.parseColor(this.color));
+            c = c.color(Color.parseColor(this.color));
 
         //c.async()
         c.capture(viewGroup)
-        .into(this);
+                .into(this);
     }
 
     public void setRadiusAndUpdate(int radius) {
